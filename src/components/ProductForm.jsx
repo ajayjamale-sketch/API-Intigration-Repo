@@ -10,10 +10,10 @@ const ProductForm = ({ setShowForm }) => {
     })
 
     const handleChage = (e) => {
-        setFormDat([
+        setFormDat({
             ...formData,
             [e.target.name] : e.target.value
-        ])
+    })
     }
     return (
         <div>
