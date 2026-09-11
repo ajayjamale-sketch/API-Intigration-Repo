@@ -1,31 +1,55 @@
 import React, { useState } from 'react'
 
-const ProductForm = ({ setShowForm }) => {
+const ProductForm = ({ setShowForm, addProduct }) => {
 
-    const [formData, setFormDat] = useState({
+    const [formData, setFormData] = useState({
         name: "",
         price: "",
         category: "",
         image: ""
     })
 
-    const handleChage = (e) => {
-        setFormDat({
+    const handleChange = (e) => {
+        setFormData({
             ...formData,
             [e.target.name] : e.target.value
-    })
+        })
     }
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault()
+
+        const newProduct = {
+            name : formData.name,
+            price : formData.price,
+            category : formData.category,
+            image : formData.image
+        }
+
+        addProduct(newProduct)
+
+        setFormData({
+            name:"",
+            price : "",
+            category : "",
+            image : "",
+        })
+
+    }
+
+
     return (
         <div>
-            <form action="">
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Enter Product Name : </label>
                 <input
                     type="text"
                     id='name'
                     name='name'
                     placeholder='product name'
-                    // onChange={handleChage}
-                    // value={name}
+                    value={formData.name}
+                    onChange={handleChange}
                 /> <br />
                 <label htmlFor="price">Enter Product Price : </label>
                 <input
@@ -33,8 +57,8 @@ const ProductForm = ({ setShowForm }) => {
                     id='price'
                     name='price'
                     placeholder='product price'
-                    // onChange={handleChage}
-                    // value={price}
+                    value={formData.price}
+                    onChange={handleChange}
                 /> <br />
                 <label htmlFor="category">Enter Product Category : </label>
                 <input
@@ -42,8 +66,8 @@ const ProductForm = ({ setShowForm }) => {
                     id='category'
                     name='category'
                     placeholder='product category'
-                    // onChange={handleChage}
-                    // value={category}
+                    value={formData.category}
+                    onChange={handleChange}
                 /> <br />
                 <label htmlFor="image">Enter Product Image URL : </label>
                 <input
@@ -51,11 +75,11 @@ const ProductForm = ({ setShowForm }) => {
                     id='image'
                     name='image'
                     placeholder='product image'
-                    // onChange={handleChage}
-                    // value={image}
+                    value={formData.image}
+                    onChange={handleChange}
                 /> <br />
 
-                <button>Submit</button>
+                <button type='submit'>Submit</button>
 
                 <button onClick={() => setShowForm(false)}>Cancel</button>
             </form>
