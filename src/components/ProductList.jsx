@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductList = ({productList}) => {
+const ProductList = ({productList, deleteProduct,setEditProduct, setShowForm}) => {
   return (
     <div className='product-list'>
       {productList.map((product) => (
@@ -12,6 +12,13 @@ const ProductList = ({productList}) => {
                     <h2 className='product-price'>${product.price}</h2>
                     <p className='product-category'>{product.category}</p>
                 </div>
+
+                <button  type='button' onClick={() => deleteProduct(product.id)}>Delete</button>
+
+                <button type='button' onClick={() => {
+                  setEditProduct(product)
+                  setShowForm(true)
+                }}>Edit</button>
             </div>
       ))}
     </div>

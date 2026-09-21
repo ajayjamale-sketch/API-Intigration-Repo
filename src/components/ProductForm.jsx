@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 
-const ProductForm = ({ setShowForm, addProduct }) => {
+const ProductForm = ({ setShowForm, addProduct, editProduct, updateProduct}) => {
 
-    const [formData, setFormData] = useState({
-        name: "",
-        price: "",
-        category: "",
-        image: ""
-    })
+    const [formData, setFormData] = useState(
+        editProduct || {
+            name: "",
+            price: "",
+            category: "",
+            image: ""
+        }
+    )
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -20,20 +22,18 @@ const ProductForm = ({ setShowForm, addProduct }) => {
 
         e.preventDefault()
 
-        const newProduct = {
-            name : formData.name,
-            price : formData.price,
-            category : formData.category,
-            image : formData.image
-        }
+        if(editProduct) {
+            updateProduct({...formData, id :     editProduct.id})
+        } else {
+            addProduct(formData)
+        }        
 
-        addProduct(newProduct)
 
         setFormData({
-            name:"",
-            price : "",
-            category : "",
-            image : "",
+            name: "",
+            price: "",
+            category: "",
+            image: "",
         })
 
     }
